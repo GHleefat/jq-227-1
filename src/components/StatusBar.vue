@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import { Clock, Footprints, Layers, Trophy } from "lucide-vue-next";
 import { formatTime } from "@/composables/useTimer";
 

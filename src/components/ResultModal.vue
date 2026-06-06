@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import { Trophy, XCircle, RotateCcw, Home, ArrowRight } from "lucide-vue-next";
 import type { GameStatus } from "@/types/pipe";
 
