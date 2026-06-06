@@ -108,11 +108,6 @@ function formatTime(seconds: number): string {
   </Transition>
 </template>
 
-<script lang="ts">
-import { computed } from "vue";
-export default { name: "ResultModal" };
-</script>
-
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {

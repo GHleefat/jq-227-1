@@ -103,8 +103,3 @@ function handleClick(row: number, col: number, cell: PipeCell) {
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { computed } from "vue";
-export default { name: "PipeGrid" };
-</script>

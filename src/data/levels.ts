@@ -1,4 +1,4 @@
-import type { Level, PipeCell } from "@/types/pipe";
+import type { Level, PipeCell, PipeType, Rotation } from "@/types/pipe";
 import { createEmptyCell, createPipeCell } from "@/utils/pipeUtils";
 
 function createGrid(rows: number, cols: number): PipeCell[][] {
@@ -7,9 +7,19 @@ function createGrid(rows: number, cols: number): PipeCell[][] {
   );
 }
 
-function randomRotation() {
-  const rotations = [0, 90, 180, 270] as const;
+function randomRotation(): Rotation {
+  const rotations: Rotation[] = [0, 90, 180, 270];
   return rotations[Math.floor(Math.random() * 4)];
+}
+
+function placeCell(
+  grid: PipeCell[][],
+  row: number,
+  col: number,
+  type: PipeType,
+  isFixed = false,
+) {
+  grid[row][col] = createPipeCell(type, randomRotation(), isFixed);
 }
 
 export const LEVELS: Level[] = [
@@ -19,16 +29,16 @@ export const LEVELS: Level[] = [
     rows: 3,
     cols: 4,
     timeLimit: 60,
-    moveLimit: 10,
+    moveLimit: 15,
     difficulty: 1,
     sourcePos: { row: 1, col: 0 },
     targetPositions: [{ row: 1, col: 3 }],
     grid: (() => {
       const g = createGrid(3, 4);
-      g[1][0] = createPipeCell("source", randomRotation(), false);
-      g[1][1] = createPipeCell("straight", randomRotation());
-      g[1][2] = createPipeCell("straight", randomRotation());
-      g[1][3] = createPipeCell("target", randomRotation(), false);
+      placeCell(g, 1, 0, "source");
+      placeCell(g, 1, 1, "straight");
+      placeCell(g, 1, 2, "straight");
+      placeCell(g, 1, 3, "target");
       return g;
     })(),
   },
@@ -38,18 +48,18 @@ export const LEVELS: Level[] = [
     rows: 3,
     cols: 4,
     timeLimit: 90,
-    moveLimit: 15,
+    moveLimit: 20,
     difficulty: 1,
     sourcePos: { row: 0, col: 0 },
     targetPositions: [{ row: 2, col: 3 }],
     grid: (() => {
       const g = createGrid(3, 4);
-      g[0][0] = createPipeCell("source", randomRotation(), false);
-      g[0][1] = createPipeCell("elbow", randomRotation());
-      g[1][1] = createPipeCell("straight", randomRotation());
-      g[2][1] = createPipeCell("elbow", randomRotation());
-      g[2][2] = createPipeCell("straight", randomRotation());
-      g[2][3] = createPipeCell("target", randomRotation(), false);
+      placeCell(g, 0, 0, "source");
+      placeCell(g, 0, 1, "elbow");
+      placeCell(g, 1, 1, "straight");
+      placeCell(g, 2, 1, "elbow");
+      placeCell(g, 2, 2, "straight");
+      placeCell(g, 2, 3, "target");
       return g;
     })(),
   },
@@ -59,21 +69,22 @@ export const LEVELS: Level[] = [
     rows: 4,
     cols: 4,
     timeLimit: 120,
-    moveLimit: 20,
+    moveLimit: 25,
     difficulty: 2,
     sourcePos: { row: 0, col: 0 },
     targetPositions: [{ row: 3, col: 3 }],
     grid: (() => {
       const g = createGrid(4, 4);
-      g[0][0] = createPipeCell("source", randomRotation(), false);
-      g[0][1] = createPipeCell("straight", randomRotation());
-      g[0][2] = createPipeCell("elbow", randomRotation());
-      g[1][2] = createPipeCell("straight", randomRotation());
-      g[2][2] = createPipeCell("elbow", randomRotation());
-      g[2][3] = createPipeCell("straight", randomRotation());
-      g[3][3] = createPipeCell("target", randomRotation(), false);
-      g[1][1] = createPipeCell("elbow", randomRotation());
-      g[2][1] = createPipeCell("tee", randomRotation());
+      placeCell(g, 0, 0, "source");
+      placeCell(g, 0, 1, "straight");
+      placeCell(g, 0, 2, "elbow");
+      placeCell(g, 1, 2, "straight");
+      placeCell(g, 2, 2, "elbow");
+      placeCell(g, 2, 3, "straight");
+      placeCell(g, 3, 3, "target");
+      placeCell(g, 1, 1, "elbow");
+      placeCell(g, 2, 1, "tee");
+      placeCell(g, 1, 0, "elbow");
       return g;
     })(),
   },
@@ -83,7 +94,7 @@ export const LEVELS: Level[] = [
     rows: 4,
     cols: 5,
     timeLimit: 150,
-    moveLimit: 25,
+    moveLimit: 30,
     difficulty: 2,
     sourcePos: { row: 1, col: 0 },
     targetPositions: [
@@ -92,18 +103,19 @@ export const LEVELS: Level[] = [
     ],
     grid: (() => {
       const g = createGrid(4, 5);
-      g[1][0] = createPipeCell("source", randomRotation(), false);
-      g[1][1] = createPipeCell("straight", randomRotation());
-      g[1][2] = createPipeCell("tee", randomRotation());
-      g[0][2] = createPipeCell("elbow", randomRotation());
-      g[0][3] = createPipeCell("straight", randomRotation());
-      g[0][4] = createPipeCell("target", randomRotation(), false);
-      g[2][2] = createPipeCell("straight", randomRotation());
-      g[3][2] = createPipeCell("elbow", randomRotation());
-      g[3][3] = createPipeCell("straight", randomRotation());
-      g[3][4] = createPipeCell("target", randomRotation(), false);
-      g[1][3] = createPipeCell("cross", randomRotation());
-      g[2][3] = createPipeCell("elbow", randomRotation());
+      placeCell(g, 1, 0, "source");
+      placeCell(g, 1, 1, "straight");
+      placeCell(g, 1, 2, "tee");
+      placeCell(g, 0, 2, "elbow");
+      placeCell(g, 0, 3, "straight");
+      placeCell(g, 0, 4, "target");
+      placeCell(g, 2, 2, "straight");
+      placeCell(g, 3, 2, "elbow");
+      placeCell(g, 3, 3, "straight");
+      placeCell(g, 3, 4, "target");
+      placeCell(g, 1, 3, "cross");
+      placeCell(g, 2, 3, "elbow");
+      placeCell(g, 2, 4, "straight");
       return g;
     })(),
   },
@@ -113,7 +125,7 @@ export const LEVELS: Level[] = [
     rows: 5,
     cols: 5,
     timeLimit: 180,
-    moveLimit: 35,
+    moveLimit: 40,
     difficulty: 3,
     sourcePos: { row: 2, col: 0 },
     targetPositions: [
@@ -122,23 +134,25 @@ export const LEVELS: Level[] = [
     ],
     grid: (() => {
       const g = createGrid(5, 5);
-      g[2][0] = createPipeCell("source", randomRotation(), false);
-      g[2][1] = createPipeCell("straight", randomRotation());
-      g[2][2] = createPipeCell("cross", randomRotation());
-      g[2][3] = createPipeCell("tee", randomRotation());
-      g[0][2] = createPipeCell("elbow", randomRotation());
-      g[0][3] = createPipeCell("straight", randomRotation());
-      g[0][4] = createPipeCell("target", randomRotation(), false);
-      g[1][2] = createPipeCell("straight", randomRotation());
-      g[4][2] = createPipeCell("elbow", randomRotation());
-      g[4][3] = createPipeCell("straight", randomRotation());
-      g[4][4] = createPipeCell("target", randomRotation(), false);
-      g[3][2] = createPipeCell("straight", randomRotation());
-      g[2][4] = createPipeCell("elbow", randomRotation());
-      g[1][4] = createPipeCell("straight", randomRotation());
-      g[3][4] = createPipeCell("straight", randomRotation());
-      g[1][1] = createPipeCell("tee", randomRotation());
-      g[3][1] = createPipeCell("tee", randomRotation());
+      placeCell(g, 2, 0, "source");
+      placeCell(g, 2, 1, "straight");
+      placeCell(g, 2, 2, "cross");
+      placeCell(g, 2, 3, "tee");
+      placeCell(g, 0, 2, "elbow");
+      placeCell(g, 0, 3, "straight");
+      placeCell(g, 0, 4, "target");
+      placeCell(g, 1, 2, "straight");
+      placeCell(g, 4, 2, "elbow");
+      placeCell(g, 4, 3, "straight");
+      placeCell(g, 4, 4, "target");
+      placeCell(g, 3, 2, "straight");
+      placeCell(g, 2, 4, "elbow");
+      placeCell(g, 1, 4, "straight");
+      placeCell(g, 3, 4, "straight");
+      placeCell(g, 1, 1, "tee");
+      placeCell(g, 3, 1, "tee");
+      placeCell(g, 1, 3, "elbow");
+      placeCell(g, 3, 3, "elbow");
       return g;
     })(),
   },
@@ -148,7 +162,7 @@ export const LEVELS: Level[] = [
     rows: 6,
     cols: 6,
     timeLimit: 240,
-    moveLimit: 50,
+    moveLimit: 60,
     difficulty: 3,
     sourcePos: { row: 0, col: 0 },
     targetPositions: [
@@ -158,31 +172,33 @@ export const LEVELS: Level[] = [
     ],
     grid: (() => {
       const g = createGrid(6, 6);
-      g[0][0] = createPipeCell("source", randomRotation(), false);
-      g[0][1] = createPipeCell("straight", randomRotation());
-      g[0][2] = createPipeCell("cross", randomRotation());
-      g[0][3] = createPipeCell("tee", randomRotation());
-      g[0][4] = createPipeCell("straight", randomRotation());
-      g[0][5] = createPipeCell("target", randomRotation(), false);
-      g[1][2] = createPipeCell("straight", randomRotation());
-      g[2][2] = createPipeCell("cross", randomRotation());
-      g[2][3] = createPipeCell("elbow", randomRotation());
-      g[3][2] = createPipeCell("straight", randomRotation());
-      g[4][2] = createPipeCell("elbow", randomRotation());
-      g[4][1] = createPipeCell("straight", randomRotation());
-      g[5][0] = createPipeCell("target", randomRotation(), false);
-      g[5][1] = createPipeCell("elbow", randomRotation());
-      g[2][4] = createPipeCell("straight", randomRotation());
-      g[2][5] = createPipeCell("elbow", randomRotation());
-      g[3][5] = createPipeCell("straight", randomRotation());
-      g[4][5] = createPipeCell("straight", randomRotation());
-      g[5][5] = createPipeCell("target", randomRotation(), false);
-      g[5][2] = createPipeCell("tee", randomRotation());
-      g[5][3] = createPipeCell("straight", randomRotation());
-      g[5][4] = createPipeCell("cross", randomRotation());
-      g[4][4] = createPipeCell("elbow", randomRotation());
-      g[3][3] = createPipeCell("tee", randomRotation());
-      g[1][3] = createPipeCell("straight", randomRotation());
+      placeCell(g, 0, 0, "source");
+      placeCell(g, 0, 1, "straight");
+      placeCell(g, 0, 2, "cross");
+      placeCell(g, 0, 3, "straight");
+      placeCell(g, 0, 4, "straight");
+      placeCell(g, 0, 5, "target");
+      placeCell(g, 1, 2, "straight");
+      placeCell(g, 2, 2, "cross");
+      placeCell(g, 2, 3, "tee");
+      placeCell(g, 3, 2, "straight");
+      placeCell(g, 4, 2, "elbow");
+      placeCell(g, 4, 1, "straight");
+      placeCell(g, 5, 0, "target");
+      placeCell(g, 5, 1, "elbow");
+      placeCell(g, 2, 4, "straight");
+      placeCell(g, 2, 5, "elbow");
+      placeCell(g, 3, 5, "straight");
+      placeCell(g, 4, 5, "straight");
+      placeCell(g, 5, 5, "target");
+      placeCell(g, 5, 2, "tee");
+      placeCell(g, 5, 3, "straight");
+      placeCell(g, 5, 4, "cross");
+      placeCell(g, 4, 4, "elbow");
+      placeCell(g, 3, 3, "cross");
+      placeCell(g, 1, 3, "straight");
+      placeCell(g, 1, 4, "elbow");
+      placeCell(g, 1, 5, "straight");
       return g;
     })(),
   },

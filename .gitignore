@@ -30,3 +30,8 @@ dist-ssr
 *.sln
 *.sw?
 .vite
+
+# AI / local tooling
+.cursor/
+.gitnexus/
+.claude/

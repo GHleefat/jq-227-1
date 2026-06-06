@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Lock, Unlock, Star, CheckCircle } from "lucide-vue-next";
+import { Lock, Unlock, Star, CheckCircle, Clock } from "lucide-vue-next";
 import { LEVELS } from "@/data/levels";
 
 interface Props {
@@ -98,8 +98,3 @@ function isLevelCompleted(levelId: number): boolean {
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { Clock } from "lucide-vue-next";
-export default { name: "LevelSelect" };
-</script>

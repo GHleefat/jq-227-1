@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref, computed, watch, onMounted } from "vue";
 import type { PipeCell } from "@/types/pipe";
 
 interface Props {
@@ -10,8 +11,32 @@ const props = withDefaults(defineProps<Props>(), {
   cellSize: 72,
 });
 
+const displayRotation = ref(0);
+
+onMounted(() => {
+  displayRotation.value = props.pipe.rotation;
+});
+
+watch(
+  () => props.pipe.rotation,
+  (newVal, oldVal) => {
+    if (oldVal === undefined) {
+      displayRotation.value = newVal;
+      return;
+    }
+    const delta = (newVal - oldVal + 360) % 360;
+    if (delta === 90) {
+      displayRotation.value += 90;
+    } else if (delta === 0) {
+      // no change
+    } else {
+      displayRotation.value = newVal;
+    }
+  },
+);
+
 const pipeStyle = computed(() => ({
-  transform: `rotate(${props.pipe.rotation}deg)`,
+  transform: `rotate(${displayRotation.value}deg)`,
   transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
 }));
 
@@ -279,8 +304,3 @@ const hasWater = computed(() => props.pipe.hasWater);
     </svg>
   </div>
 </template>
-
-<script lang="ts">
-import { computed } from "vue";
-export default { name: "PipeSvg" };
-</script>
