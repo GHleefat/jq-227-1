@@ -22,7 +22,7 @@ export function getPipeConnections(pipe: PipeCell): Direction[] {
 }
 
 export function rotatePipe(pipe: PipeCell): PipeCell {
-  if (pipe.isFixed) return pipe;
+  if (pipe.type === "empty") return pipe;
   const rotations: Rotation[] = [0, 90, 180, 270];
   const currentIndex = rotations.indexOf(pipe.rotation);
   const nextIndex = (currentIndex + 1) % 4;

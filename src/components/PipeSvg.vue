@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { PipeCell } from "@/types/pipe";
-import { getPipeConnections } from "@/utils/pipeUtils";
 
 interface Props {
   pipe: PipeCell;
@@ -17,7 +16,6 @@ const pipeStyle = computed(() => ({
 }));
 
 const hasWater = computed(() => props.pipe.hasWater);
-const connections = computed(() => getPipeConnections(props.pipe));
 </script>
 
 <template>
@@ -82,13 +80,46 @@ const connections = computed(() => getPipeConnections(props.pipe));
       </template>
 
       <template v-else-if="pipe.type === 'elbow'">
-        <path
-          d="M30 0 L42 0 L42 30 Q42 42 42 42 L72 42 L72 30 L42 30 Q30 30 30 30 Z"
+        <rect
+          x="30"
+          y="0"
+          width="12"
+          height="42"
           fill="url(#metalGrad)"
+          rx="2"
         />
-        <path
+        <rect
+          x="30"
+          y="30"
+          width="42"
+          height="12"
+          fill="url(#metalGrad)"
+          rx="2"
+        />
+        <circle cx="36" cy="36" r="10" fill="url(#metalGrad)" />
+        <rect
           v-if="hasWater"
-          d="M33 0 L39 0 L39 33 Q39 39 39 39 L72 39 L72 33 L33 33 Q33 33 33 33 Z"
+          x="33"
+          y="0"
+          width="6"
+          height="42"
+          fill="url(#waterInner)"
+          opacity="0.9"
+        />
+        <rect
+          v-if="hasWater"
+          x="30"
+          y="33"
+          width="42"
+          height="6"
+          fill="url(#waterInner)"
+          opacity="0.9"
+        />
+        <circle
+          v-if="hasWater"
+          cx="36"
+          cy="36"
+          r="5"
           fill="url(#waterInner)"
           opacity="0.9"
         />
@@ -172,25 +203,25 @@ const connections = computed(() => getPipeConnections(props.pipe));
         <circle cx="36" cy="36" r="28" fill="url(#sourceGlow)" />
         <circle cx="36" cy="36" r="20" fill="#fde68a" />
         <rect
-          x="30"
-          y="0"
-          width="12"
-          height="36"
+          x="36"
+          y="30"
+          width="36"
+          height="12"
           fill="url(#metalGrad)"
           rx="2"
         />
         <rect
           v-if="hasWater"
-          x="33"
-          y="0"
-          width="6"
-          height="36"
+          x="36"
+          y="33"
+          width="36"
+          height="6"
           fill="url(#waterInner)"
           opacity="0.9"
         />
         <text
           x="36"
-          y="42"
+          y="41"
           text-anchor="middle"
           font-size="16"
           font-weight="bold"
@@ -217,25 +248,25 @@ const connections = computed(() => getPipeConnections(props.pipe));
           :fill="hasWater ? '#a7f3d0' : '#0f172a'"
         />
         <rect
-          x="30"
-          y="36"
-          width="12"
-          height="36"
+          x="0"
+          y="30"
+          width="36"
+          height="12"
           fill="url(#metalGrad)"
           rx="2"
         />
         <rect
           v-if="hasWater"
-          x="33"
-          y="36"
-          width="6"
-          height="36"
+          x="0"
+          y="33"
+          width="36"
+          height="6"
           fill="url(#waterInner)"
           opacity="0.9"
         />
         <text
           x="36"
-          y="32"
+          y="41"
           text-anchor="middle"
           font-size="16"
           font-weight="bold"

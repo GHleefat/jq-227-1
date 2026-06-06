@@ -25,10 +25,10 @@ export const LEVELS: Level[] = [
     targetPositions: [{ row: 1, col: 3 }],
     grid: (() => {
       const g = createGrid(3, 4);
-      g[1][0] = createPipeCell("source", 0, true);
+      g[1][0] = createPipeCell("source", randomRotation(), false);
       g[1][1] = createPipeCell("straight", randomRotation());
       g[1][2] = createPipeCell("straight", randomRotation());
-      g[1][3] = createPipeCell("target", 0, true);
+      g[1][3] = createPipeCell("target", randomRotation(), false);
       return g;
     })(),
   },
@@ -44,12 +44,12 @@ export const LEVELS: Level[] = [
     targetPositions: [{ row: 2, col: 3 }],
     grid: (() => {
       const g = createGrid(3, 4);
-      g[0][0] = createPipeCell("source", 90, true);
+      g[0][0] = createPipeCell("source", randomRotation(), false);
       g[0][1] = createPipeCell("elbow", randomRotation());
       g[1][1] = createPipeCell("straight", randomRotation());
       g[2][1] = createPipeCell("elbow", randomRotation());
       g[2][2] = createPipeCell("straight", randomRotation());
-      g[2][3] = createPipeCell("target", 180, true);
+      g[2][3] = createPipeCell("target", randomRotation(), false);
       return g;
     })(),
   },
@@ -65,13 +65,13 @@ export const LEVELS: Level[] = [
     targetPositions: [{ row: 3, col: 3 }],
     grid: (() => {
       const g = createGrid(4, 4);
-      g[0][0] = createPipeCell("source", 90, true);
+      g[0][0] = createPipeCell("source", randomRotation(), false);
       g[0][1] = createPipeCell("straight", randomRotation());
       g[0][2] = createPipeCell("elbow", randomRotation());
       g[1][2] = createPipeCell("straight", randomRotation());
       g[2][2] = createPipeCell("elbow", randomRotation());
       g[2][3] = createPipeCell("straight", randomRotation());
-      g[3][3] = createPipeCell("target", 270, true);
+      g[3][3] = createPipeCell("target", randomRotation(), false);
       g[1][1] = createPipeCell("elbow", randomRotation());
       g[2][1] = createPipeCell("tee", randomRotation());
       return g;
@@ -92,16 +92,16 @@ export const LEVELS: Level[] = [
     ],
     grid: (() => {
       const g = createGrid(4, 5);
-      g[1][0] = createPipeCell("source", 0, true);
+      g[1][0] = createPipeCell("source", randomRotation(), false);
       g[1][1] = createPipeCell("straight", randomRotation());
       g[1][2] = createPipeCell("tee", randomRotation());
       g[0][2] = createPipeCell("elbow", randomRotation());
       g[0][3] = createPipeCell("straight", randomRotation());
-      g[0][4] = createPipeCell("target", 270, true);
+      g[0][4] = createPipeCell("target", randomRotation(), false);
       g[2][2] = createPipeCell("straight", randomRotation());
       g[3][2] = createPipeCell("elbow", randomRotation());
       g[3][3] = createPipeCell("straight", randomRotation());
-      g[3][4] = createPipeCell("target", 270, true);
+      g[3][4] = createPipeCell("target", randomRotation(), false);
       g[1][3] = createPipeCell("cross", randomRotation());
       g[2][3] = createPipeCell("elbow", randomRotation());
       return g;
@@ -122,17 +122,17 @@ export const LEVELS: Level[] = [
     ],
     grid: (() => {
       const g = createGrid(5, 5);
-      g[2][0] = createPipeCell("source", 0, true);
+      g[2][0] = createPipeCell("source", randomRotation(), false);
       g[2][1] = createPipeCell("straight", randomRotation());
       g[2][2] = createPipeCell("cross", randomRotation());
       g[2][3] = createPipeCell("tee", randomRotation());
       g[0][2] = createPipeCell("elbow", randomRotation());
       g[0][3] = createPipeCell("straight", randomRotation());
-      g[0][4] = createPipeCell("target", 270, true);
+      g[0][4] = createPipeCell("target", randomRotation(), false);
       g[1][2] = createPipeCell("straight", randomRotation());
       g[4][2] = createPipeCell("elbow", randomRotation());
       g[4][3] = createPipeCell("straight", randomRotation());
-      g[4][4] = createPipeCell("target", 270, true);
+      g[4][4] = createPipeCell("target", randomRotation(), false);
       g[3][2] = createPipeCell("straight", randomRotation());
       g[2][4] = createPipeCell("elbow", randomRotation());
       g[1][4] = createPipeCell("straight", randomRotation());
@@ -158,25 +158,25 @@ export const LEVELS: Level[] = [
     ],
     grid: (() => {
       const g = createGrid(6, 6);
-      g[0][0] = createPipeCell("source", 0, true);
+      g[0][0] = createPipeCell("source", randomRotation(), false);
       g[0][1] = createPipeCell("straight", randomRotation());
       g[0][2] = createPipeCell("cross", randomRotation());
       g[0][3] = createPipeCell("tee", randomRotation());
       g[0][4] = createPipeCell("straight", randomRotation());
-      g[0][5] = createPipeCell("target", 270, true);
+      g[0][5] = createPipeCell("target", randomRotation(), false);
       g[1][2] = createPipeCell("straight", randomRotation());
       g[2][2] = createPipeCell("cross", randomRotation());
       g[2][3] = createPipeCell("elbow", randomRotation());
       g[3][2] = createPipeCell("straight", randomRotation());
       g[4][2] = createPipeCell("elbow", randomRotation());
       g[4][1] = createPipeCell("straight", randomRotation());
-      g[5][0] = createPipeCell("target", 0, true);
+      g[5][0] = createPipeCell("target", randomRotation(), false);
       g[5][1] = createPipeCell("elbow", randomRotation());
       g[2][4] = createPipeCell("straight", randomRotation());
       g[2][5] = createPipeCell("elbow", randomRotation());
       g[3][5] = createPipeCell("straight", randomRotation());
       g[4][5] = createPipeCell("straight", randomRotation());
-      g[5][5] = createPipeCell("target", 270, true);
+      g[5][5] = createPipeCell("target", randomRotation(), false);
       g[5][2] = createPipeCell("tee", randomRotation());
       g[5][3] = createPipeCell("straight", randomRotation());
       g[5][4] = createPipeCell("cross", randomRotation());

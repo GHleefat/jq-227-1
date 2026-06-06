@@ -33,7 +33,7 @@ function isTarget(row: number, col: number) {
 }
 
 function handleClick(row: number, col: number, cell: PipeCell) {
-  if (props.disabled || cell.isFixed || cell.type === "empty") return;
+  if (props.disabled || cell.type === "empty") return;
   emit("cellClick", row, col);
 }
 </script>
@@ -56,9 +56,8 @@ function handleClick(row: number, col: number, cell: PipeCell) {
           v-bind:key="`${rowIndex}-${colIndex}`"
           class="pipe-grid-cell relative rounded-lg cursor-pointer select-none"
           :class="{
-            fixed: cell.isFixed,
-            'cursor-not-allowed':
-              disabled || cell.isFixed || cell.type === 'empty',
+            fixed: cell.type === 'empty',
+            'cursor-not-allowed': disabled || cell.type === 'empty',
             'bg-slate-800/40 border border-pipe-border': cell.type !== 'empty',
             'bg-slate-900/60 rounded-lg border border-slate-800/50':
               cell.type === 'empty',
